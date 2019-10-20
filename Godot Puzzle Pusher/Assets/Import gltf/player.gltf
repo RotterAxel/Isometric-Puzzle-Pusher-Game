@@ -21,7 +21,7 @@
     "materials" : [
         {
             "doubleSided" : true,
-            "name" : "Material_Ice",
+            "name" : "Material_player",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
                     "index" : 0,
