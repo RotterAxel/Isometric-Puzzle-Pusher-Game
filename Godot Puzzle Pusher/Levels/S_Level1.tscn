@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Grid Map/ML_Environment.tres" type="MeshLibrary" id=1]
+[ext_resource path="res://Levels/S_Level1.gd" type="Script" id=1]
+[ext_resource path="res://Grid Map/ML_Environment.tres" type="MeshLibrary" id=2]
 
 [node name="S_Level1" type="Spatial"]
+script = ExtResource( 1 )
 
 [node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource( 1 )
+mesh_library = ExtResource( 2 )
 cell_size = Vector3( 1, 1, 1 )
 cell_octant_size = 4
 data = {
