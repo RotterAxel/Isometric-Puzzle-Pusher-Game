@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Grid Map/ML_Environment.tres" type="MeshLibrary" id=1]
 
-[node name="World3" type="Spatial"]
+[node name="S_Level3" type="Spatial"]
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 1 )

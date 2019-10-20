@@ -17,6 +17,10 @@ _global_script_class_icons={
 
 config/name="Puzzle Pusher"
 
+[autoload]
+
+singleton_spawn_point="*res://Services/singleton_spawn_point.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
