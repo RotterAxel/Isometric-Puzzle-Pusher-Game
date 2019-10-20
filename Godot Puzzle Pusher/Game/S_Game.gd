@@ -1,7 +1,8 @@
 extends Node
 
 #Level Variables
-onready var S_level1 = preload("res://Levels/S_Level1.tscn") as PackedScene
+export var level_scene: PackedScene
+#onready var S_level1 = preload("res://Levels/S_Level1.tscn") as PackedScene
 var S_level1_instance
 
 #Player Variables
@@ -10,7 +11,7 @@ var S_player_instance: Spatial
 
 func _ready():
 	#Load Level 1
-	S_level1_instance = S_level1.instance()
+	S_level1_instance = level_scene.instance()
 	
 	if(S_level1_instance):
 		add_child(S_level1_instance)
