@@ -22,3 +22,4 @@ material/0 = null
 transform = Transform( 0.707107, 0.40558, -0.579228, 0, 0.819152, 0.573576, 0.707107, -0.40558, 0.579228, -5, 5, 5 )
 
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="KinematicBody/CameraTarget"]
+transform = Transform( 1, 0, 0, 0, 1, 7.15256e-007, 0, 0, 1, 0, 0, 0 )
