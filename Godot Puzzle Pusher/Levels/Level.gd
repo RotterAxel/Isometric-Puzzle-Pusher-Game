@@ -1,5 +1,6 @@
 extends GridMap
 
+#Local Variables
 var spawn_point:Vector3 = Vector3()
 
 #Player Variables
@@ -14,8 +15,6 @@ func _ready():
 	
 	#Inject PLAYER with information
 	S_player_instance.spawn_point = spawn_point
-	
-	S_player_instance.grid_map_coords = get_used_cells()
 	
 	if(S_player_instance):
 		add_child(S_player_instance)

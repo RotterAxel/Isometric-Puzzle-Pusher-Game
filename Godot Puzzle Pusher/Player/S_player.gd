@@ -1,7 +1,7 @@
 extends Spatial
 
+#Local Variables
 var spawn_point:Vector3 = Vector3() setget set_spawn_point
-var grid_map_coords: PoolVector3Array = PoolVector3Array() setget set_grid_map_coordinates
 var current_position: Vector3 = Vector3()
 export var speed: int = 100
 
@@ -13,9 +13,6 @@ func set_spawn_point(spawn: Vector3):
 	translation = spawn_point
 	current_position = spawn_point
 	print(spawn_point)
-
-func set_grid_map_coordinates(coords: PoolVector3Array):
-	grid_map_coords = coords
 
 func _process(delta):
 	var destination: Vector3
