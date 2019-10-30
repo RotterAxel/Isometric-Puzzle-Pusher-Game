@@ -39,7 +39,6 @@ func _process(delta):
 		target_direction = direction.normalized()
 		is_moving = true
 		world_target_pos = grid_map_parent.is_cell_vacant(translation, target_direction)
-		print("World target position " + str(world_target_pos))
 		
 	elif is_moving:
 		speed = MAX_SPEED
@@ -50,10 +49,5 @@ func _process(delta):
 		if distance_to_target < move_distance:
 			velocity = target_direction * distance_to_target
 			is_moving = false
-		
-		
-		print("Velocity " + str(velocity))
-		print("distance_to_target " + str(distance_to_target))
-		print("move_distance " + str(move_distance))
 		
 		move_and_collide(velocity)
