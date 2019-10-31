@@ -14,9 +14,9 @@ func _ready():
 	SI_spawn_point.find_spawn_points(self)
 	
 	#Load Player and Inject Spawn Position
-	S_player_instance = S_player.instance()
-	S_player_instance.spawn_point = SI_spawn_point.player_spawn_point
-	player_position = S_player_instance.spawn_point
+	S_player_instance = S_player.instance() as KinematicBody
+	S_player_instance.translate(SI_spawn_point.player_spawn_point)
+	player_position = S_player_instance.translation
 	
 	if(S_player_instance):
 		add_child(S_player_instance)
@@ -37,7 +37,6 @@ func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
 	var puzzle_piece_collides = false
 	
 	for puzzle_piece in S_puzzle_piece_array:
-		print(puzzle_piece.translation)
 		if world_to_map(puzzle_piece.translation) == target_grid_pos:
 			#Check if this piece + direction will collide with another piece
 			for piece_position in puzzle_piece_positions:

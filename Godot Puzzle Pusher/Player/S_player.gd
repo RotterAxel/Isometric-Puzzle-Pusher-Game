@@ -1,7 +1,6 @@
 extends KinematicBody
 
 #Local Variables
-var spawn_point:Vector3 = Vector3() setget set_spawn_point
 
 var direction = Vector3()
 export var speed = 0
@@ -16,10 +15,6 @@ var grid_map_parent: GridMap
 
 func _ready():
 	grid_map_parent = get_parent() as GridMap
-	
-func set_spawn_point(spawn: Vector3):
-	spawn_point = spawn
-	translate(spawn)
 
 func _process(delta):
 	direction = Vector3()
