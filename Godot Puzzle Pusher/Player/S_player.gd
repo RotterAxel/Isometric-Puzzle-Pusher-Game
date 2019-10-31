@@ -20,13 +20,11 @@ func _ready():
 func set_spawn_point(spawn: Vector3):
 	spawn_point = spawn
 	translate(spawn)
-	print(spawn)
 
 func _process(delta):
 	direction = Vector3()
 	speed = 0
 	if Input.is_action_just_pressed("ui_up"):
-		#current_position.x +=1
 		direction.x +=1
 	elif Input.is_action_just_pressed("ui_down"):
 		direction.x -=1
