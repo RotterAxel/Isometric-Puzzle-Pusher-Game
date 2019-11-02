@@ -11,15 +11,16 @@ var S_puzzle_piece_array: Array
 var puzzle_piece_positions: PoolVector3Array
 
 func _ready():
+	SI_out_of_bounds.calculate_out_of_bounds_positions(self)
+	
+	#Find Spawn Points for Player and Puzzle Pieces
 	SI_spawn_point.find_spawn_points(self)
 	
-	#Load Player and Inject Spawn Position
+	#Load Player and translate to Spawn Position
 	S_player_instance = S_player.instance() as KinematicBody
 	S_player_instance.translate(SI_spawn_point.player_spawn_point)
 	player_position = S_player_instance.translation
-	
-	if(S_player_instance):
-		add_child(S_player_instance)
+	add_child(S_player_instance)
 	
 	#Load Puzzle Pieces
 	for puzzle_spawn in SI_spawn_point.puzzle_piece_spawn_point:
@@ -49,6 +50,7 @@ func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
 				puzzle_piece.set_direction(direction)
 			else:
 				return this_world_pos
+	
 	new_position = map_to_world(target_grid_pos.x, target_grid_pos.y, target_grid_pos.z)
 	update_puzzle_positions()
 	return new_position
