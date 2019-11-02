@@ -21,6 +21,7 @@ config/name="Puzzle Pusher"
 
 SI_spawn_point="*res://Services/SI_spawn_point.gd"
 SI_out_of_bounds="*res://Services/SI_out_of_bounds.gd"
+SI_Test_Script="*res://Services/SI_Test_Script.gd"
 
 [input]
 

@@ -4,6 +4,8 @@ var out_of_bounds_positions: PoolVector3Array
 
 var directions: PoolVector3Array
 
+
+
 func _ready():
 	directions.append(Vector3(1,0,0))
 	directions.append(Vector3(-1,0,0))
@@ -28,32 +30,15 @@ func calculate_out_of_bounds_positions(gridMap: GridMap):
 					continue
 			if cell_taken == false:
 				out_of_bounds_positions.append(neighbour_direction)
+		
+		remove_double_entries()
 	
-	remove_double_entries()
-	
-	test_out_of_bounds_is_correct(used_cells)
+	#TESTS (Comment out if you don´t want to run tests on this class)
+	#SI_Test_Script.are_out_of_bounds_points_unique(out_of_bounds_positions)
+	#SI_Test_Script.are_grid_points_out_of_bounds(used_cells, out_of_bounds_positions)
 
-func test_out_of_bounds_is_correct(used_cells: PoolVector3Array):
-	
-	var cell_taken = false;
-	
-	for position in out_of_bounds_positions:
-		for cell in used_cells:
-			if position == cell:
-				cell_taken = true
-				print("Test Failed: " + str(position) + str(cell))
-				break
-				
-	
-	if cell_taken == false:
-		print("Test Passed")
 
 func remove_double_entries():
-	var double_entry = out_of_bounds_positions[0]
-	out_of_bounds_positions.append(double_entry)
-	
-	print("Out of bounds size " + str(out_of_bounds_positions.size()))
-	
 	#Delete double entries in out of bounds
 	if out_of_bounds_positions.size() < 2:
 		return []
@@ -73,4 +58,3 @@ func remove_double_entries():
 	if duplicate_indexes.size() > 0:
 		for double in duplicate_indexes:
 			out_of_bounds_positions.remove(double)
-	
