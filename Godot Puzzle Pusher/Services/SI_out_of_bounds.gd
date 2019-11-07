@@ -32,10 +32,6 @@ func calculate_out_of_bounds_positions(gridMap: GridMap):
 				out_of_bounds_positions.append(neighbour_direction)
 		
 		remove_double_entries()
-	
-	#TESTS (Comment out if you don´t want to run tests on this class)
-	#SI_Test_Script.are_out_of_bounds_points_unique(out_of_bounds_positions)
-	#SI_Test_Script.are_grid_points_out_of_bounds(used_cells, out_of_bounds_positions)
 
 
 func remove_double_entries():

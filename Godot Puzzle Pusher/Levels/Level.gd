@@ -1,5 +1,8 @@
 extends GridMap
 
+#Run Tests Variable
+export var test_mode = false;
+
 #Player Variables
 onready var S_player = preload("res://Player/S_player.tscn") as PackedScene
 var S_player_instance: KinematicBody
@@ -29,6 +32,11 @@ func _ready():
 		puzzle_piece_instance.translate(puzzle_spawn)
 		puzzle_piece_positions.append(puzzle_piece_instance.translation)
 		S_puzzle_piece_array.append(puzzle_piece_instance)
+	
+	if test_mode:
+		SI_Test_Script.are_grid_points_out_of_bounds(self.get_used_cells(), SI_out_of_bounds.out_of_bounds_positions)
+		SI_Test_Script.are_out_of_bounds_points_unique(SI_out_of_bounds.out_of_bounds_positions)
+		SI_Test_Script.visualize_out_of_bounds_cells(self, SI_out_of_bounds.out_of_bounds_positions)
 
 
 func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
@@ -42,7 +50,6 @@ func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
 			#Check if this piece + direction will collide with another piece
 			for piece_position in puzzle_piece_positions:
 				if world_to_map(puzzle_piece.translation + direction) == world_to_map(piece_position):
-					print("Puzzle piece collides")
 					puzzle_piece_collides = true
 			
 			if !puzzle_piece_collides:
@@ -59,3 +66,5 @@ func update_puzzle_positions():
 	puzzle_piece_positions = PoolVector3Array()
 	for piece in S_puzzle_piece_array:
 		puzzle_piece_positions.append(piece.translation)
+		
+	
