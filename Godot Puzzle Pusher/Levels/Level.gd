@@ -19,12 +19,20 @@ onready var S_puzzle_piece = preload("res://Puzzle Pieces/S_Puzzle_Piece.tscn") 
 var S_puzzle_piece_array: Array
 var puzzle_piece_positions: PoolVector3Array
 
+#Goal Positions
+var goal_positions: PoolVector3Array
 
 func _ready():
+	#Get out of bounds positions
 	SI_out_of_bounds.calculate_out_of_bounds_positions(self)
 	
 	#Find Spawn Points for Player and Puzzle Pieces
 	SI_spawn_point.find_spawn_points(self)
+	
+	#Get Goal Positions
+	for grid in get_used_cells():
+		if mesh_library.get_item_name(get_cell_item(grid.x, grid.y, grid.z)) == "ziel":
+			goal_positions.append(grid)
 	
 	#Load Puzzle Pieces
 	for puzzle_spawn in SI_spawn_point.puzzle_piece_spawn_point:
@@ -63,6 +71,10 @@ func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
 					if !puzzle_piece_collides:
 						puzzle_piece = puzzle_piece as KinematicBody
 						puzzle_piece.set_direction(direction)
+						#PUZZLE POSITION IS BEING UPDATED IN A DELTA AFTER THE PIECE HAS BEEN SET IN MOTION
+						#NEED TO GET FINAL POSITION MAYBE direction + translation or something
+						update_puzzle_positions()
+						are_puzzle_pieces_on_target()
 					else:
 						return this_world_pos
 				else:
@@ -71,14 +83,13 @@ func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
 		return this_world_pos
 	
 	new_position = map_to_world(target_grid_pos.x, target_grid_pos.y, target_grid_pos.z)
-	update_puzzle_positions()
 	return new_position
 	
 func update_puzzle_positions():
 	puzzle_piece_positions = PoolVector3Array()
 	for piece in S_puzzle_piece_array:
 		puzzle_piece_positions.append(piece.translation)
-		
+
 
 func _is_moving_out_of_bounds(target_grid_position: Vector3) -> bool:
 	var target_grid_position_adapted = target_grid_position
@@ -87,13 +98,15 @@ func _is_moving_out_of_bounds(target_grid_position: Vector3) -> bool:
 		if out_of_bound_position == target_grid_position_adapted:
 			return true
 	return false
+
+func are_puzzle_pieces_on_target():
+	var number_of_goals = goal_positions.size()
+	var goal_positions_reached = 0
+	for position in puzzle_piece_positions:
+		position = world_to_map(position)
+		for goal_position in goal_positions:
+			if position == goal_position:
+				goal_positions_reached += 1
 	
-func load_player_instance():
-	var parent = get_parent()
-	var parents_children = parent.get_children()
-	for child in parents_children:
-		if child is KinematicBody:
-			S_player_instance = child
-		else:
-			print("ERROR " + self.name + ": No player instance found")
-	
+	if number_of_goals == goal_positions_reached:
+		print("Ziel erreicht")
