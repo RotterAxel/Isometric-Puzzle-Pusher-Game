@@ -1,7 +1,6 @@
 extends KinematicBody
 
 #Local Variables
-
 var direction = Vector3()
 export var speed = 0
 const MAX_SPEED = 10
@@ -11,10 +10,11 @@ var world_target_pos = Vector3()
 var target_direction = Vector3()
 var is_moving = false
 
-var grid_map_parent: GridMap
+#Current Level
+var grid_map: GridMap
 
 func _ready():
-	grid_map_parent = get_parent() as GridMap
+	pass
 
 func _process(delta):
 	direction = Vector3()
@@ -31,7 +31,7 @@ func _process(delta):
 	if not is_moving and direction != Vector3(): 
 		target_direction = direction.normalized()
 		is_moving = true
-		world_target_pos = grid_map_parent.is_cell_vacant(translation, target_direction)
+		world_target_pos = grid_map.is_cell_vacant(translation, target_direction)
 		
 	elif is_moving:
 		speed = MAX_SPEED

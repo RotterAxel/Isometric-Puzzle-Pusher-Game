@@ -4,9 +4,15 @@ extends GridMap
 export var test_mode = false;
 
 #Player Variables
-onready var S_player = preload("res://Player/S_player.tscn") as PackedScene
-var S_player_instance: KinematicBody
+var S_player_instance: KinematicBody setget set_player_instance
 var player_position: Vector3
+
+func set_player_instance(player_instance: KinematicBody):
+	if(player_instance):
+		#Load Player and translate to Spawn Position
+		S_player_instance = player_instance as KinematicBody
+		S_player_instance.translate(SI_spawn_point.player_spawn_point)
+		player_position = S_player_instance.translation
 
 #Puzzle Piece Variables
 onready var S_puzzle_piece = preload("res://Puzzle Pieces/S_Puzzle_Piece.tscn") as PackedScene
@@ -19,12 +25,6 @@ func _ready():
 	
 	#Find Spawn Points for Player and Puzzle Pieces
 	SI_spawn_point.find_spawn_points(self)
-	
-	#Load Player and translate to Spawn Position
-	S_player_instance = S_player.instance() as KinematicBody
-	S_player_instance.translate(SI_spawn_point.player_spawn_point)
-	player_position = S_player_instance.translation
-	add_child(S_player_instance)
 	
 	#Load Puzzle Pieces
 	for puzzle_spawn in SI_spawn_point.puzzle_piece_spawn_point:
@@ -87,3 +87,13 @@ func _is_moving_out_of_bounds(target_grid_position: Vector3) -> bool:
 		if out_of_bound_position == target_grid_position_adapted:
 			return true
 	return false
+	
+func load_player_instance():
+	var parent = get_parent()
+	var parents_children = parent.get_children()
+	for child in parents_children:
+		if child is KinematicBody:
+			S_player_instance = child
+		else:
+			print("ERROR " + self.name + ": No player instance found")
+	
