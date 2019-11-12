@@ -54,19 +54,19 @@ func is_cell_vacant(this_world_pos=Vector3(), direction=Vector3()) -> Vector3:
 			#Get Puzzle piece if it lies in the path of the target direction of the player
 			if world_to_map(puzzle_piece.translation) == target_grid_pos:
 				#Is the puzzle piece trying to move out of bounds
-				if _is_moving_out_of_bounds(world_to_map(puzzle_piece.translation)) == false:
+				if _is_moving_out_of_bounds(world_to_map(puzzle_piece.translation + direction)) == false:
 					#Check if this piece + direction will collide with another piece
 					for piece_position in puzzle_piece_positions:
 						if world_to_map(puzzle_piece.translation + direction) == world_to_map(piece_position):
 							puzzle_piece_collides = true
 						
-					
 					if !puzzle_piece_collides:
 						puzzle_piece = puzzle_piece as KinematicBody
 						puzzle_piece.set_direction(direction)
 					else:
 						return this_world_pos
-				
+				else:
+					return this_world_pos
 	elif _is_moving_out_of_bounds(target_grid_pos) == true:
 		return this_world_pos
 	

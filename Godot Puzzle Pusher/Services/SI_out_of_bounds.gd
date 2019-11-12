@@ -42,23 +42,16 @@ func _remove_double_entries():
 
 	var seen = {}
 	seen[out_of_bounds_positions[0]] = true
-	var duplicate_positions = PoolVector3Array()
 	
 	for i in range(1, out_of_bounds_positions.size()):
 		var v = out_of_bounds_positions[i]
-		if seen.has(v):
-			# Duplicate!
-			duplicate_positions.append(out_of_bounds_positions[i])
-		else:
+		if !seen.has(v):
 			seen[v] = true
 	
-	print(duplicate_positions)
+	out_of_bounds_positions = PoolVector3Array()
+	for seen_position in seen:
+		out_of_bounds_positions.append(seen_position)
 	
-	
-	
-#	if duplicate_indexes.size() > 0:
-#		for double in duplicate_indexes:
-#			out_of_bounds_positions.remove(double)
 
 func _add_out_of_bounds_top_and_bottom():
 	var top_bottom_positions_to_append = PoolVector3Array()
